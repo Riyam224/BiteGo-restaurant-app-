@@ -1,6 +1,6 @@
 # App Flavors Guide
 
-## What are Flavors?
+## What are Flavors? 
 
 Flavors allow you to create different versions of your app from the same codebase. Think of it like having a "testing version" and a "production version" of your app, each with different settings.
 
@@ -179,7 +179,7 @@ When you run the app, you can immediately tell which flavor you're using:
 
 ## Installing Both Versions
 
-Because Dev and Prod have different package IDs, you can install both versions on the same device:
+Because Dev and Prod have different package IDs, u  can install both versions on the same device:
 - Dev: `com.example.restaurant_app.dev`
 - Prod: `com.example.restaurant_app`
 
