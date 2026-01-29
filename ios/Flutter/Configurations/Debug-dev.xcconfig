@@ -1,0 +1,7 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+PRODUCT_BUNDLE_IDENTIFIER = com.example.restaurant_app.dev
+PRODUCT_NAME = BiteGo Dev
+APP_DISPLAY_NAME = BiteGo Dev
+FLUTTER_TARGET = lib/main_dev.dart
