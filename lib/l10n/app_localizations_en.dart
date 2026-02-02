@@ -52,4 +52,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get password => 'Password';
+
+  @override
+  String get welcomeTitle => 'Welcome';
+
+  @override
+  String get welcomeDescription => 'Before enjoying Foodmedia services \nPlease register first';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get termsPrefix => 'By logging in or registering, you have agreed to ';
+
+  @override
+  String get termsAndConditions => 'the Terms and Conditions';
+
+  @override
+  String get termsAndSeparator => ' and ';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy.';
 }

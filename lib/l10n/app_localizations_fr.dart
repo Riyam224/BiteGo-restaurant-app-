@@ -52,4 +52,25 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get password => 'Mot de passe';
+
+  @override
+  String get welcomeTitle => 'Bienvenue';
+
+  @override
+  String get welcomeDescription => 'Avant de profiter des services Foodmedia\nVeuillez d\'abord vous inscrire';
+
+  @override
+  String get createAccount => 'Créer un compte';
+
+  @override
+  String get termsPrefix => 'En vous connectant ou en vous inscrivant, vous avez accepté ';
+
+  @override
+  String get termsAndConditions => 'les Termes et Conditions';
+
+  @override
+  String get termsAndSeparator => ' et ';
+
+  @override
+  String get privacyPolicy => 'la Politique de Confidentialité.';
 }

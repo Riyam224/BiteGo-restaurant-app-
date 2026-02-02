@@ -40,6 +40,15 @@ abstract class AppLocalizations {
   String get register;
   String get email;
   String get password;
+
+  // Welcome Screen
+  String get welcomeTitle;
+  String get welcomeDescription;
+  String get createAccount;
+  String get termsPrefix;
+  String get termsAndConditions;
+  String get termsAndSeparator;
+  String get privacyPolicy;
 }
 
 class _AppLocalizationsDelegate

@@ -95,6 +95,7 @@ class AppSizing {
   static double get w283 => 283.w;
   static double get w300 => 300.w;
   static double get w310 => 310.w;
+  static double get w320 => 320.w;
   static double get w333 => 333.65.w;
   static double get w342 => 342.w;
   static double get w350 => 350.w;

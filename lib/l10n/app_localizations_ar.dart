@@ -52,4 +52,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get password => 'كلمة المرور';
+
+  @override
+  String get welcomeTitle => 'مرحباً';
+
+  @override
+  String get welcomeDescription => 'قبل الاستمتاع بخدمات Foodmedia\nيرجى التسجيل أولاً';
+
+  @override
+  String get createAccount => 'إنشاء حساب';
+
+  @override
+  String get termsPrefix => 'بتسجيل الدخول أو التسجيل، فإنك توافق على ';
+
+  @override
+  String get termsAndConditions => 'الشروط والأحكام';
+
+  @override
+  String get termsAndSeparator => ' و ';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية.';
 }

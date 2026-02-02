@@ -15,7 +15,7 @@ class RouteGenerator {
     navigatorKey: appNavigatorKey,
     errorBuilder: (context, state) =>
         const Scaffold(body: Center(child: Text('Not found'))),
-    initialLocation: AppRoutes.splash,
+    initialLocation: AppRoutes.welcome,
     routes: [
       GoRoute(path: AppRoutes.splash, builder: (_, __) => const SplashScreen()),
       GoRoute(

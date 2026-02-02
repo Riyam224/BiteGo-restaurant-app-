@@ -21,6 +21,7 @@ class AppColors {
   // ===== Text Colors =====
   static const Color textPrimary = Color(0xFF1F2937); // Headings
   static const Color textSecondary = Color(0xFF4B5563);
+  static const Color textTertiary = Color(0xFF242323); // Terms text
   static const Color textBlack = Color(0xFF000000);
   static const Color textWhite = Color(0xFFFFFFFF);
 

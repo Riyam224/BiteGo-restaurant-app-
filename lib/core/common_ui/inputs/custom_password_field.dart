@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class CustomPasswordField extends StatefulWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String? label;
+  final String? Function(String?)? validator;
+
+  const CustomPasswordField({
     super.key,
     required this.controller,
     required this.hintText,
     this.label,
-    this.keyboardType = TextInputType.text,
-    this.prefixIcon,
     this.validator,
-    this.enabled = true,
   });
-  final TextEditingController controller;
-  final String hintText;
-  final String? label;
-  final TextInputType keyboardType;
-  final Widget? prefixIcon;
-  final String? Function(String?)? validator;
-  final bool enabled;
+
+  @override
+  State<CustomPasswordField> createState() => _CustomPasswordFieldState();
+}
+
+class _CustomPasswordFieldState extends State<CustomPasswordField> {
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +29,11 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null) ...[
+        if (widget.label != null) ...[
           Padding(
             padding: EdgeInsets.only(left: 4.w, bottom: 8.h),
             child: Text(
-              label!,
+              widget.label!,
               style: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
@@ -42,22 +44,32 @@ class CustomTextField extends StatelessWidget {
           ),
         ],
         TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          validator: validator,
-          enabled: enabled,
+          controller: widget.controller,
+          obscureText: _obscureText,
+          validator: widget.validator,
           style: TextStyle(
             fontSize: 15.sp,
             fontWeight: FontWeight.w400,
           ),
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: widget.hintText,
             hintStyle: TextStyle(
               color: Colors.grey.shade400,
               fontSize: 15.sp,
               fontWeight: FontWeight.w400,
             ),
-            prefixIcon: prefixIcon,
+            suffixIcon: IconButton(
+              icon: Icon(
+                _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                color: Colors.grey.shade600,
+                size: 20.sp,
+              ),
+              onPressed: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            ),
             filled: true,
             fillColor: theme.cardColor,
             contentPadding: EdgeInsets.symmetric(
