@@ -53,6 +53,7 @@ class AppStrings {
   static const loginSubtitle = 'Please sign in to your existing account';
   static const forgotPassword = 'Forgot Password?';
   static const rememberMe = 'Remember me';
+  static const rememberPassword = 'Remember the password?';
 
   // =========================
   // AUTH – REGISTER
@@ -63,6 +64,16 @@ class AppStrings {
 
   static const fullName = 'Full Name';
   static const phoneNumber = 'Phone Number';
+  static const registration = 'Registration';
+
+  // =========================
+  // AUTH – FORGET PASSWORD
+  // =========================
+  static const forgetPasswordTitle = 'Forget Password';
+  static const forgetPasswordSubtitle = 'Enter your registered email below';
+  static const emailAddress = 'Email Address';
+  static const enterYourEmail = 'Enter your email';
+  static const submit = 'Submit';
 
   // =========================
   // AUTH – WELCOME
@@ -131,4 +142,15 @@ class AppStrings {
   static const requiredField = 'This field is required';
   static const invalidEmail = 'Please enter a valid email';
   static const passwordTooShort = 'Password must be at least 6 characters';
+  static const emailRequired = 'Email is required';
+  static const fullNameRequired = 'Full name is required';
+
+  // =========================
+  // COMMON TEXT
+  // =========================
+  static const exampleEmail = 'Eg namaemail@emailkamu.com';
+  static const examplePassword = '**********';
+  static const exampleFullName = 'Eg Jhon Doe';
+  static const loginWithGoogle = 'Login with Google';
+  static const signUpWithGoogle = 'Sign up with Google';
 }

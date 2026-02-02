@@ -12,6 +12,7 @@ class SecondaryButton extends StatelessWidget {
   final double? radius;
   final Color? borderColor;
   final Color? textColor;
+  final Color? backgroundColor;
 
   const SecondaryButton({
     super.key,
@@ -21,6 +22,7 @@ class SecondaryButton extends StatelessWidget {
     this.radius,
     this.borderColor,
     this.textColor,
+    this.backgroundColor,
   });
 
   @override
@@ -33,7 +35,7 @@ class SecondaryButton extends StatelessWidget {
       height: buttonHeight,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryLight,
+          backgroundColor: backgroundColor ?? AppColors.primaryLight,
           padding: EdgeInsets.symmetric(horizontal: AppSizing.w64, vertical: AppSizing.h16),
           elevation: 0,
           shape: RoundedRectangleBorder(

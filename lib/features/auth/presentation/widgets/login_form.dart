@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_app/core/common_ui/inputs/custom_password_field.dart';
 import 'package:restaurant_app/core/common_ui/inputs/custom_text_field.dart';
+import 'package:restaurant_app/core/config/app_text_styles.dart';
+import 'package:restaurant_app/core/constants/app_spacing.dart';
+import 'package:restaurant_app/core/constants/app_strings.dart';
+import 'package:restaurant_app/core/routing/route_names.dart';
+import 'package:restaurant_app/core/utils/app_colors.dart';
 import 'package:restaurant_app/features/auth/presentation/widgets/auth_button.dart';
 import 'package:restaurant_app/features/auth/presentation/widgets/google_sign_in_button.dart';
 
@@ -30,55 +35,54 @@ class _LoginFormState extends State<LoginForm> {
       children: [
         CustomTextField(
           controller: _emailController,
-          label: 'Email address',
-          hintText: 'Eg namaemail@emailkamu.com',
+          label: AppStrings.email,
+          hintText: AppStrings.exampleEmail,
           keyboardType: TextInputType.emailAddress,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Email is required';
+              return AppStrings.emailRequired;
             }
             return null;
           },
         ),
-        const SizedBox(height: 16),
+        AppSpacing.gapH16,
         CustomPasswordField(
           controller: _passwordController,
-          label: 'Password',
-          hintText: '**********',
+          label: AppStrings.password,
+          hintText: AppStrings.examplePassword,
           validator: (value) {
             if (value == null || value.length < 6) {
-              return 'Password must be at least 6 characters';
+              return AppStrings.passwordTooShort;
             }
             return null;
           },
         ),
-        const SizedBox(height: 8),
+        AppSpacing.gapH8,
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: () {
-              // Handle forgot password
+              GoRouter.of(context).go(AppRoutes.forgetPassword);
             },
-            child: const Text(
-              'Forgot Password?',
-              style: TextStyle(
-                color: Color(0xFF4CAF50),
-                fontSize: 14,
+            child: Text(
+              AppStrings.forgotPassword,
+              style: AppTextStyles.authLink.copyWith(
+                color: AppColors.primary,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
         ),
-        SizedBox(height: 36.h),
+        AppSpacing.gapH33,
         AuthButton(
-          text: 'Login',
+          text: AppStrings.login,
           onPressed: () {
             // Handle login
           },
         ),
-        SizedBox(height: 16.h),
+        AppSpacing.gapH16,
         GoogleSignInButton(
-          text: 'Login with Google',
+          text: AppStrings.loginWithGoogle,
           onPressed: () {
             // Handle Google login
           },

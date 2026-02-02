@@ -135,6 +135,27 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
   );
 
+  // Forget Password Styles
+  static TextStyle get forgetPasswordTitle => TextStyle(
+    fontFamily: _font,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+    height: 1.80,
+  );
+
+  static TextStyle get forgetPasswordSubtitle => TextStyle(
+    fontFamily: _font,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    height: 1.31,
+  );
+
+  static TextStyle get authLink => TextStyle(
+    fontFamily: _font,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+  );
+
   // =========================
   // CARDS / LIST ITEMS
   // =========================

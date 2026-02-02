@@ -49,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _skipOnboarding() {
-    GoRouter.of(context).go(AppRoutes.login);
+    GoRouter.of(context).go(AppRoutes.welcome);
   }
 
   @override
