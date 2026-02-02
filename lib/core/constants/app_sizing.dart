@@ -142,6 +142,10 @@ class AppSizing {
   static double get avatarRadius => 50.r;
   static double get iconContainerSmall => 25.w;
   static double get iconContainerMedium => 50.w;
+  static double get iconContainerLarge => 50.w;
+  static double get iconImageSize => 25.w;
+  static double get iconContainerPadding => 12.w;
+  static double get iconBorderRadius => 25.r;
 
   static double get bottomNavHeight => 70.h;
 

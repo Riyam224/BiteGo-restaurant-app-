@@ -97,7 +97,9 @@ class AppSpacing {
   static EdgeInsets get paddingL23R23T15B15 =>
       EdgeInsets.only(left: 23.w, right: 23.w, top: 15.h, bottom: 15.h);
   static EdgeInsets get paddingT24L19R19B19 =>
-      EdgeInsets.only(top: 24, left: 19, right: 19, bottom: 19);
+      EdgeInsets.only(top: 24.h, left: 19.w, right: 19.w, bottom: 19.h);
+  static EdgeInsets get paddingH24T120 =>
+      EdgeInsets.only(left: 24.w, right: 24.w, top: 120.h);
 
   // Margin - All Sides
   static EdgeInsets get marginAll4 => EdgeInsets.all(4.w);
@@ -170,7 +172,10 @@ class AppSpacing {
   static SizedBox get gapH140 => SizedBox(height: 140.h);
   static SizedBox get gapH150 => SizedBox(height: 150.h);
   static SizedBox get gapH186 => SizedBox(height: 186.h);
+  static SizedBox get gapH200 => SizedBox(height: 200.h);
+  static SizedBox get gapH270 => SizedBox(height: 270.h);
   static SizedBox get gapH295 => SizedBox(height: 295.h);
+  static SizedBox get gapH344 => SizedBox(height: 344.h);
 
   // ========= HORIZONTAL GAPS (SizedBox widths) =========
 

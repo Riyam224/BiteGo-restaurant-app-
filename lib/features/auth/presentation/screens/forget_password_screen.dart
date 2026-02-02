@@ -46,7 +46,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: AppSpacing.paddingOnly(left: 24, right: 24, top: 120),
+        padding: AppSpacing.paddingH24T120,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -106,7 +106,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   ),
                 ],
               ),
-              AppSpacing.customGapH(344),
+              AppSpacing.gapH344,
               _isEmailFilled
                   ? PrimaryButton(
                       text: AppStrings.submit,

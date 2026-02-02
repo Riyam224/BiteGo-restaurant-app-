@@ -80,6 +80,17 @@ class AppStrings {
   static const resubmit = 'Resubmit';
   static const backToEmail = 'Back Email';
 
+  static const newPassword = 'New Password';
+  static const enterNewPassword = 'Enter your new password';
+  static const reEnterPassword = 'Re-enter your password';
+  static const resetPassword = 'Reset Password';
+
+  static const changeNewPasswordTitle = 'Change New Password';
+  static const changeNewPasswordSubtitle = 'Enter a different password with the previous';
+
+  static const successTitle = 'Success!';
+  static const passwordChangedMessage = 'Congratulations your password has\nbeen changed,';
+
   // =========================
   // AUTH – WELCOME
   // =========================

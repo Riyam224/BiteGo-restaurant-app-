@@ -12,6 +12,8 @@ class SuccessCheckEmailWhenForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -25,9 +27,11 @@ class SuccessCheckEmailWhenForgetPasswordScreen extends StatelessWidget {
             ),
             AppSpacing.gapH8,
             Text(
-              'Success!',
+              AppStrings.successTitle,
               style: AppTextStyles.headlineLarge.copyWith(
-                color: AppColors.textPrimary,
+                color: theme.brightness == Brightness.dark
+                    ? AppColors.textWhite
+                    : AppColors.textPrimary,
               ),
             ),
             Padding(
@@ -36,7 +40,9 @@ class SuccessCheckEmailWhenForgetPasswordScreen extends StatelessWidget {
                 AppStrings.checkEmailTitle,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.successMessage.copyWith(
-                  color: AppColors.textSecondary,
+                  color: theme.brightness == Brightness.dark
+                      ? AppColors.textWhite
+                      : AppColors.textSecondary,
                 ),
               ),
             ),
@@ -47,7 +53,9 @@ class SuccessCheckEmailWhenForgetPasswordScreen extends StatelessWidget {
                 Text(
                   AppStrings.cantGetEmail,
                   style: AppTextStyles.authLinkBold.copyWith(
-                    color: AppColors.textSecondary,
+                    color: theme.brightness == Brightness.dark
+                        ? AppColors.textWhite
+                        : AppColors.textSecondary,
                   ),
                 ),
                 AppSpacing.gapW4,

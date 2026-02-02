@@ -7,6 +7,7 @@ import 'package:restaurant_app/core/config/app_text_styles.dart';
 import 'package:restaurant_app/core/constants/app_assets.dart';
 import 'package:restaurant_app/core/constants/app_spacing.dart';
 import 'package:restaurant_app/core/constants/app_strings.dart';
+import 'package:restaurant_app/core/utils/app_colors.dart';
 import 'package:restaurant_app/features/auth/presentation/widgets/authBottomSheet.dart';
 
 enum AuthType { login, register }
@@ -32,9 +33,8 @@ class WelcomeScreen extends StatelessWidget {
                 AppStrings.welcomeTitle,
                 style: AppTextStyles.welcomeTitle.copyWith(
                   color: theme.brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                  fontWeight: FontWeight.bold,
+                      ? AppColors.textWhite
+                      : AppColors.textPrimary,
                 ),
               ),
               AppSpacing.gapH8,
@@ -42,8 +42,8 @@ class WelcomeScreen extends StatelessWidget {
                 AppStrings.welcomeSubtitle,
                 style: AppTextStyles.welcomeDescription.copyWith(
                   color: theme.brightness == Brightness.dark
-                      ? Colors.white70
-                      : Colors.black87,
+                      ? AppColors.textWhite
+                      : AppColors.textSecondary,
                 ),
                 textAlign: TextAlign.center,
               ),

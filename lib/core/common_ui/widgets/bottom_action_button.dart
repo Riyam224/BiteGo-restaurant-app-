@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:restaurant_app/core/constants/app_sizing.dart';
 import 'package:restaurant_app/core/utils/app_colors.dart';
 
 class BottomActionButton extends StatelessWidget {
@@ -49,7 +50,7 @@ class BottomActionButton extends StatelessWidget {
         text,
         style: TextStyle(
           color: textColor,
-          fontSize: fontSize ?? 16,
+          fontSize: fontSize ?? 16.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -59,11 +60,11 @@ class BottomActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 75,
+      height: height ?? AppSizing.buttonHeightLarge,
       width: width ?? double.infinity,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: padding ?? EdgeInsets.all(8).r,
+            padding: padding ?? EdgeInsets.all(8.w),
             backgroundColor: backgroundColor ?? AppColors.primary,
             shape: RoundedRectangleBorder(
               borderRadius: borderRadiusGeometry ??

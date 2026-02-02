@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/core/constants/app_sizing.dart';
 
 class CustomIconWithBg extends StatelessWidget {
   final Color? backgroundColor;
@@ -22,15 +23,19 @@ class CustomIconWithBg extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 50,
-        height: 50,
+        width: size ?? AppSizing.iconContainerLarge,
+        height: size ?? AppSizing.iconContainerLarge,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(AppSizing.iconBorderRadius),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Image.asset(iconImg, width: 25, height: 25),
+          padding: EdgeInsets.all(AppSizing.iconContainerPadding),
+          child: Image.asset(
+            iconImg,
+            width: AppSizing.iconImageSize,
+            height: AppSizing.iconImageSize,
+          ),
         ),
       ),
     );
