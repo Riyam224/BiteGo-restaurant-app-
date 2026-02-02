@@ -46,7 +46,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: AppSpacing.customPadding(left: 24, right: 24, top: 120),
+        padding: AppSpacing.paddingOnly(left: 24, right: 24, top: 120),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -112,6 +112,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       text: AppStrings.submit,
                       onPressed: () {
                         // Handle submit
+                        GoRouter.of(
+                          context,
+                        ).go(AppRoutes.successCheckEmailWhenForgetPassword);
                       },
                     )
                   : SecondaryButton(
@@ -122,6 +125,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         // Button is disabled when empty
                       },
                     ),
+              AppSpacing.gapH70,
             ],
           ),
         ),

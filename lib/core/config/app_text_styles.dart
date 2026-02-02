@@ -156,6 +156,21 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
   );
 
+  // Success Check Email Styles
+  static TextStyle get successMessage => TextStyle(
+    fontFamily: _font,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    height: 1.31,
+  );
+
+  static TextStyle get authLinkBold => TextStyle(
+    fontFamily: _font,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w700,
+    height: 2.25,
+  );
+
   // =========================
   // CARDS / LIST ITEMS
   // =========================

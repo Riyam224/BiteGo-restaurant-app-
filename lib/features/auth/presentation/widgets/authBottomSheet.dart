@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:restaurant_app/core/constants/app_spacing.dart';
 import 'package:restaurant_app/features/auth/presentation/screens/welcome_screen.dart';
 import 'package:restaurant_app/features/auth/presentation/widgets/auth_tabs.dart';
 import 'package:restaurant_app/features/auth/presentation/widgets/login_form.dart';
@@ -49,28 +50,28 @@ class _AuthBottomSheetState extends State<AuthBottomSheet> {
           ),
           child: Column(
             children: [
-              SizedBox(height: 12.h),
+              AppSpacing.gapH12,
               _buildDragHandle(theme),
-              SizedBox(height: 24.h),
+              AppSpacing.gapH24,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                padding: AppSpacing.paddingH24,
                 child: AuthTabs(
                   isLogin: _isLogin,
                   onLoginTap: _switchToLogin,
                   onRegisterTap: _switchToRegister,
                 ),
               ),
-              SizedBox(height: 32.h),
+              AppSpacing.gapH32,
               Expanded(
                 child: SingleChildScrollView(
                   controller: scrollController,
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  padding: AppSpacing.paddingH24,
                   child: _isLogin
                       ? const LoginForm()
                       : const RegisterForm(),
                 ),
               ),
-              SizedBox(height: 24.h),
+              AppSpacing.gapH24,
             ],
           ),
         );
@@ -80,8 +81,8 @@ class _AuthBottomSheetState extends State<AuthBottomSheet> {
 
   Widget _buildDragHandle(ThemeData theme) {
     return Container(
-      width: 48.w,
-      height: 4.h,
+      width: AppSpacing.gapW48.width,
+      height: AppSpacing.gapH4.height,
       decoration: BoxDecoration(
         color: theme.brightness == Brightness.dark
             ? Colors.grey.shade700

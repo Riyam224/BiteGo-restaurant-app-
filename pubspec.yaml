@@ -43,6 +43,7 @@ dependencies:
   formz: ^0.8.0
   go_router: ^17.0.1
   intl: 0.20.2
+  lottie: ^3.3.2
   shared_preferences: ^2.5.4
 
 dev_dependencies:
@@ -65,6 +66,7 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/icons/
+    - assets/lottie/Check Mark.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

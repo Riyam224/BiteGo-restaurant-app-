@@ -75,6 +75,11 @@ class AppStrings {
   static const enterYourEmail = 'Enter your email';
   static const submit = 'Submit';
 
+  static const checkEmailTitle = 'Please check your email for create a new password';
+  static const cantGetEmail = 'Cant get email?';
+  static const resubmit = 'Resubmit';
+  static const backToEmail = 'Back Email';
+
   // =========================
   // AUTH – WELCOME
   // =========================

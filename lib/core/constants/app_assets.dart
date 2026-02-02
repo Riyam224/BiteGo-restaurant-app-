@@ -17,9 +17,10 @@ class AppAssets {
   static const profileMan = 'assets/images/profile_man.png';
   static const profileGirl = 'assets/images/profile_girl.png';
 
-  // Auth  assets
+  //todo  Auth  assets
   // google icon
   static const googleIcon = 'assets/icons/google.png';
+  static const lottieCheck = 'assets/lottie/Check Mark.json';
 
   static const home = 'assets/icons/home.svg';
   static const homeFilled = 'assets/icons/home_filled.svg';
