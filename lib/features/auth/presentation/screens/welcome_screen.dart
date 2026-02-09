@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:restaurant_app/core/common_ui/buttons/primary_button.dart';
 import 'package:restaurant_app/core/common_ui/buttons/secondary_button.dart';
@@ -8,7 +9,9 @@ import 'package:restaurant_app/core/constants/app_assets.dart';
 import 'package:restaurant_app/core/constants/app_spacing.dart';
 import 'package:restaurant_app/core/constants/app_strings.dart';
 import 'package:restaurant_app/core/utils/app_colors.dart';
-import 'package:restaurant_app/features/auth/presentation/widgets/authBottomSheet.dart';
+import 'package:restaurant_app/features/auth/di/auth_dependencies.dart';
+import 'package:restaurant_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:restaurant_app/features/auth/presentation/widgets/auth_bottom_sheet.dart';
 
 enum AuthType { login, register }
 
@@ -19,55 +22,62 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: AppSpacing.paddingH24,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppSpacing.gapH120,
-              SvgPicture.asset(AppAssets.welcome),
-              AppSpacing.gapH55,
-              Text(
-                AppStrings.welcomeTitle,
-                style: AppTextStyles.welcomeTitle.copyWith(
-                  color: theme.brightness == Brightness.dark
-                      ? AppColors.textWhite
-                      : AppColors.textPrimary,
+    return BlocProvider(
+      create: (_) => AuthDependencies.createAuthCubit(),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: AppSpacing.paddingH24,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppSpacing.gapH120,
+                    SvgPicture.asset(AppAssets.welcome),
+                    AppSpacing.gapH55,
+                    Text(
+                      AppStrings.welcomeTitle,
+                      style: AppTextStyles.welcomeTitle.copyWith(
+                        color: theme.brightness == Brightness.dark
+                            ? AppColors.textWhite
+                            : AppColors.textPrimary,
+                      ),
+                    ),
+                    AppSpacing.gapH8,
+                    Text(
+                      AppStrings.welcomeSubtitle,
+                      style: AppTextStyles.welcomeDescription.copyWith(
+                        color: theme.brightness == Brightness.dark
+                            ? AppColors.textWhite
+                            : AppColors.textSecondary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    AppSpacing.gapH95,
+
+                    /// Create Account
+                    PrimaryButton(
+                      text: AppStrings.createAccount,
+                      onPressed: () {
+                        _showAuthBottomSheet(context, authType: AuthType.register);
+                      },
+                    ),
+                    AppSpacing.gapH16,
+
+                    /// Login
+                    SecondaryButton(
+                      text: AppStrings.login,
+                      onPressed: () {
+                        _showAuthBottomSheet(context, authType: AuthType.login);
+                      },
+                    ),
+                  ],
                 ),
               ),
-              AppSpacing.gapH8,
-              Text(
-                AppStrings.welcomeSubtitle,
-                style: AppTextStyles.welcomeDescription.copyWith(
-                  color: theme.brightness == Brightness.dark
-                      ? AppColors.textWhite
-                      : AppColors.textSecondary,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              AppSpacing.gapH95,
-
-              /// Create Account
-              PrimaryButton(
-                text: AppStrings.createAccount,
-                onPressed: () {
-                  _showAuthBottomSheet(context, authType: AuthType.register);
-                },
-              ),
-              AppSpacing.gapH16,
-
-              /// Login
-              SecondaryButton(
-                text: AppStrings.login,
-                onPressed: () {
-                  _showAuthBottomSheet(context, authType: AuthType.login);
-                },
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -80,8 +90,14 @@ class WelcomeScreen extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) {
-        return AuthBottomSheet(authType: authType);
+      builder: (modalContext) {
+        // Pass the existing AuthCubit from parent context to modal context
+        // Modal dialogs create a new BuildContext, so we use BlocProvider.value
+        // to share the same cubit instance (not create a new one)
+        return BlocProvider.value(
+          value: context.read<AuthCubit>(),
+          child: AuthBottomSheet(authType: authType),
+        );
       },
     );
   }

@@ -194,6 +194,12 @@ class AppSpacing {
   static double get gridMainSpacing => 12.h;
   static double get gridMainExtent => 110.h;
 
+  // ========= LAYOUT FLEX VALUES =========
+
+  static const int flexTop = 2;
+  static const int flexMiddle = 1;
+  static const int flexBottom = 1;
+
   // ========= CUSTOM GAPS =========
 
   static SizedBox customGapH(double height) => SizedBox(height: height.h);

@@ -158,6 +158,10 @@ class AppSizing {
   static double get screenWidth => 375.w;
   static double get screenHeight => 812.h;
 
+  // ========= RATIOS =========
+
+  static const double illustrationHeightRatio = 0.4;
+
   // ========= BORDERS & DIVIDERS =========
 
   static double get borderThin => 1.w;

@@ -2,27 +2,25 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "BiteGo Dev",
+      "name": "BiteGo Dev (Debug)",
       "request": "launch",
       "type": "dart",
+      "flutterMode": "debug",
       "program": "lib/main_dev.dart",
       "args": [
         "--flavor",
-        "dev",
-        "--target",
-        "lib/main_dev.dart"
+        "dev"
       ]
     },
     {
-      "name": "BiteGo Prod",
+      "name": "BiteGo Prod (Profile)",
       "request": "launch",
       "type": "dart",
+      "flutterMode": "profile",
       "program": "lib/main_prod.dart",
       "args": [
         "--flavor",
-        "prod",
-        "--target",
-        "lib/main_prod.dart"
+        "prod"
       ]
     }
   ]

@@ -2,61 +2,69 @@ class ApiEndpoints {
   ApiEndpoints._();
 
   // =========================
-  // BASE
-  // =========================
-  static const String baseUrl = '/api/v1';
-
-  // Optional (documentation)
-  static const String swagger = '/api/docs/';
-  static const String schema = '/api/schema/';
-
-  // =========================
   // AUTH
   // =========================
-  static const String register = '$baseUrl/auth/register';
-  static const String login = '$baseUrl/auth/login';
-  static const String refreshToken = '$baseUrl/auth/refresh';
+  static const String register = '/auth/register';
+  static const String login = '/auth/login';
+  static const String refreshToken = '/auth/refresh';
+
+  // Password Recovery
+  static const String forgotPassword = '/auth/forgot-password';
+  static const String verifyOtp = '/auth/verify-otp';
+  static const String resetPassword = '/auth/reset-password';
 
   // =========================
-  // PROFILE (Bearer required)
+  // PROFILE
   // =========================
-  static const String profile = '$baseUrl/profile';
+  static const String profile = '/profile';
 
   // =========================
-  // CATEGORIES (Public)
+  // ADDRESSES
   // =========================
-  static const String categories = '$baseUrl/categories/';
+  static const String addresses = '/addresses';
+
+  static String addressDetails(int id) => '/addresses/$id';
 
   // =========================
-  // PRODUCTS / MENU (Public)
+  // CATEGORIES
   // =========================
-  static const String products = '$baseUrl/products/';
+  static const String categories = '/categories';
+
+  // =========================
+  // PRODUCTS
+  // =========================
+  static const String products = '/products';
 
   static String productsByCategory(int categoryId) =>
-      '$baseUrl/products/?category_id=$categoryId';
+      '/products/?category_id=$categoryId';
 
-  static String productDetails(int productId) =>
-      '$baseUrl/products/$productId/';
-
-  // =========================
-  // CART (Bearer required)
-  // =========================
-  static const String cart = '$baseUrl/cart/';
-
-  static const String addToCart = '$baseUrl/cart/add/';
-
-  static String removeCartItem(int itemId) => '$baseUrl/cart/item/$itemId/';
+  static String productDetails(int id) => '/products/$id';
 
   // =========================
-  // ORDERS (Bearer required)
+  // CART
   // =========================
-  static const String createOrder = '$baseUrl/orders/create/';
+  static const String cart = '/cart';
+  static const String addToCart = '/cart/add';
 
-  static const String orders = '$baseUrl/orders/';
+  static String removeCartItem(int id) => '/cart/item/$id';
 
-  static String orderDetails(int orderId) => '$baseUrl/orders/$orderId/';
+  // =========================
+  // ORDERS
+  // =========================
+  static const String orders = '/orders';
+  static const String createOrder = '/orders/create';
 
-  // Admin only
-  static String updateOrderStatus(int orderId) =>
-      '$baseUrl/orders/$orderId/status/';
+  static String orderDetails(int id) => '/orders/$id';
+  static String orderStatus(int id) => '/orders/$id/status';
+
+  // =========================
+  // REVIEWS
+  // =========================
+  static const String reviews = '/reviews';
+  static const String myReviews = '/reviews/my';
+  static const String createReview = '/reviews/create';
+
+  static String reviewDetails(int id) => '/reviews/$id';
+  static String updateReview(int id) => '/reviews/$id';
+  static String deleteReview(int id) => '/reviews/$id';
 }

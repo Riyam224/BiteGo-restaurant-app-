@@ -66,6 +66,15 @@ class AppStrings {
   static const phoneNumber = 'Phone Number';
   static const registration = 'Registration';
 
+  static const welcomeAboardTitle = 'Welcome Aboard!';
+  static const registrationSuccessMessage = 'Registration successful. Setting up your account...';
+
+  // =========================
+  // AUTH – LOGIN SUCCESS
+  // =========================
+  static const welcomeBackTitle = 'Welcome Back!';
+  static const loginSuccessMessage = 'Login successful. Redirecting to home...';
+
   // =========================
   // AUTH – FORGET PASSWORD
   // =========================

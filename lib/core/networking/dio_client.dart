@@ -3,11 +3,18 @@ import 'package:flutter/foundation.dart';
 import 'package:restaurant_app/core/config/network_config.dart';
 import 'package:restaurant_app/core/config/timing_config.dart';
 import 'package:restaurant_app/core/constants/api_base.dart';
+import 'package:restaurant_app/core/storage/shared_prefs.dart';
 
 /// Factory class that creates and configures Dio HTTP client instances.
-/// Sets up interceptors for API key injection, logging, and error handling.
+/// Provides separate clients for public and protected endpoints.
+///
+/// Following SOLID Principles:
+/// - Single Responsibility: Only creates and configures HTTP client
+/// - Open/Closed: Easy to extend with new interceptors without modifying existing code
 class DioClient {
-  static Dio createDio() {
+  /// Creates a Dio client for PUBLIC endpoints (no authentication required)
+  /// Use for: register, login, forgot-password, verify-otp, reset-password
+  static Dio createPublicDio() {
     final dio = Dio(
       BaseOptions(
         baseUrl: ApiBase.apiV1,
@@ -19,11 +26,69 @@ class DioClient {
       ),
     );
 
+    // Basic request/response logging (NO AUTH INTERCEPTOR)
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          if (kDebugMode) {
+            debugPrint('🌐 [PublicDio] Request → ${options.method} ${options.uri}');
+          }
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          if (kDebugMode) {
+            debugPrint(
+                '✅ [PublicDio] Response → ${response.statusCode} ${response.requestOptions.uri}');
+          }
+          return handler.next(response);
+        },
+        onError: (error, handler) {
+          if (kDebugMode) {
+            debugPrint(
+                '❌ [PublicDio] Error → ${error.response?.statusCode} ${error.requestOptions.uri}');
+            debugPrint('❌ [PublicDio] Message → ${error.message}');
+          }
+          return handler.next(error);
+        },
+      ),
+    );
+
+    _addDebugLogging(dio);
+    return dio;
+  }
+
+  /// Creates a Dio client for PROTECTED endpoints (authentication required)
+  /// Use for: profile, cart, orders, addresses, reviews, etc.
+  static Dio createProtectedDio() {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: ApiBase.apiV1,
+        connectTimeout: TimingConfig.connectionTimeout,
+        receiveTimeout: TimingConfig.receiveTimeout,
+        headers: {
+          NetworkConfig.acceptHeader: NetworkConfig.acceptValue,
+        },
+      ),
+    );
+
+    // JWT Token Injection Interceptor
+    // Automatically adds Bearer token to all authenticated requests
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
+          // Get JWT token from secure storage
+          final token = await AppPrefs.getAccessToken();
+
+          // Add Bearer token to Authorization header if available
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+
           if (kDebugMode) {
-            debugPrint('🌐 [DioClient] Request → ${options.method} ${options.uri}');
+            debugPrint('🌐 [ProtectedDio] Request → ${options.method} ${options.uri}');
+            if (token != null) {
+              debugPrint('🔐 [ProtectedDio] Auth Token → ${token.substring(0, 20)}...');
+            }
           }
 
           return handler.next(options);
@@ -31,15 +96,15 @@ class DioClient {
         onResponse: (response, handler) {
           if (kDebugMode) {
             debugPrint(
-                '✅ [DioClient] Response → ${response.statusCode} ${response.requestOptions.uri}');
+                '✅ [ProtectedDio] Response → ${response.statusCode} ${response.requestOptions.uri}');
           }
           return handler.next(response);
         },
         onError: (error, handler) {
           if (kDebugMode) {
             debugPrint(
-                '❌ [DioClient] Error → ${error.response?.statusCode} ${error.requestOptions.uri}');
-            debugPrint('❌ [DioClient] Message → ${error.message}');
+                '❌ [ProtectedDio] Error → ${error.response?.statusCode} ${error.requestOptions.uri}');
+            debugPrint('❌ [ProtectedDio] Message → ${error.message}');
           }
 
           return handler.next(error);
@@ -47,7 +112,12 @@ class DioClient {
       ),
     );
 
-    /// Debug-only detailed logging to avoid performance overhead in production
+    _addDebugLogging(dio);
+    return dio;
+  }
+
+  /// Adds detailed debug logging in development mode only
+  static void _addDebugLogging(Dio dio) {
     if (kDebugMode) {
       dio.interceptors.add(
         LogInterceptor(
@@ -61,7 +131,10 @@ class DioClient {
         ),
       );
     }
-
-    return dio;
   }
+
+  /// Legacy method for backward compatibility
+  /// @deprecated Use createProtectedDio() instead
+  @Deprecated('Use createProtectedDio() for authenticated endpoints')
+  static Dio createDio() => createProtectedDio();
 }

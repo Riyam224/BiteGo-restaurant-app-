@@ -21,7 +21,7 @@ class RouteGenerator {
     navigatorKey: appNavigatorKey,
     errorBuilder: (context, state) =>
         const Scaffold(body: Center(child: Text('Not found'))),
-    initialLocation: AppRoutes.home,
+    initialLocation: AppRoutes.splash,
     routes: [
       // splash screen route
       GoRoute(path: AppRoutes.splash, builder: (_, __) => const SplashScreen()),
@@ -51,8 +51,23 @@ class RouteGenerator {
         path: AppRoutes.successChangePassword,
         builder: (_, __) => const SuccessChangePasswordScreen(),
       ),
-      // home route
-      GoRoute(path: AppRoutes.home, builder: (_, __) => const HomeScreen()),
+      // home route with fade transition
+      GoRoute(
+        path: AppRoutes.home,
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const HomeScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeIn,
+              ),
+              child: child,
+            );
+          },
+        ),
+      ),
     ],
   );
 }

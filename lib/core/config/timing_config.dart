@@ -44,4 +44,6 @@ class TimingConfig {
 
   static const Duration indicatorAnimationDuration =
       Duration(milliseconds: 250);
+
+  static const Duration snackbarErrorDuration = Duration(seconds: 4);
 }
