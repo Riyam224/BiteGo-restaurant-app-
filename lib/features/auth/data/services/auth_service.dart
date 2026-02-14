@@ -36,6 +36,17 @@ class AuthService extends PublicApiService {
     );
   }
 
+  Future<Response> googleSignIn({
+    required String idToken,
+  }) async {
+    return await post(
+      ApiEndpoints.googleSignIn,
+      data: {
+        'id_token': idToken,
+      },
+    );
+  }
+
   Future<Response> refreshToken({
     required String refreshToken,
   }) async {

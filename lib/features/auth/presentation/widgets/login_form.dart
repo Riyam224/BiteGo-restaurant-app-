@@ -50,6 +50,11 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  void _handleGoogleSignIn() {
+    AppLogger.auth('Google Sign-In attempt');
+    context.read<AuthCubit>().signInWithGoogle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
@@ -65,8 +70,12 @@ class _LoginFormState extends State<LoginForm> {
               duration: TimingConfig.snackbarErrorDuration,
             ),
           );
-        } else if (state is AuthLoginSuccess) {
-          AppLogger.auth('Login successful for: ${state.user.email}');
+        } else if (state is AuthLoginSuccess || state is AuthGoogleSignInSuccess) {
+          final user = state is AuthLoginSuccess
+              ? state.user
+              : (state as AuthGoogleSignInSuccess).user;
+
+          AppLogger.auth('Login successful for: ${user.email}');
 
           if (!context.mounted) return;
 
@@ -137,7 +146,7 @@ class _LoginFormState extends State<LoginForm> {
               AppSpacing.gapH16,
               GoogleSignInButton(
                 text: AppStrings.loginWithGoogle,
-                onPressed: isLoading ? null : () {},
+                onPressed: isLoading ? null : _handleGoogleSignIn,
               ),
             ],
           ),

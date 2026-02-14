@@ -30,5 +30,7 @@ abstract class AuthRepository {
     required String newPassword,
   });
 
+  Future<Either<String, AuthResult>> signInWithGoogle();
+
   Future<Either<String, void>> logout();
 }

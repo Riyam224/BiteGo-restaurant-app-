@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:restaurant_app/features/auth/data/services/auth_service.dart';
+import 'package:restaurant_app/features/auth/data/services/google_auth_service.dart';
 import 'package:restaurant_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:restaurant_app/features/auth/domain/usecases/forgot_password_usecase.dart';
+import 'package:restaurant_app/features/auth/domain/usecases/google_sign_in_usecase.dart';
 import 'package:restaurant_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:restaurant_app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:restaurant_app/features/auth/domain/usecases/register_usecase.dart';
@@ -15,12 +17,18 @@ class AuthDependencies {
 
   static AuthService _authService() => AuthService();
 
-  static AuthRepository _authRepository() => AuthRepositoryImpl(_authService());
+  static GoogleAuthService _googleAuthService() => GoogleAuthService();
+
+  static AuthRepository _authRepository() =>
+      AuthRepositoryImpl(_authService(), _googleAuthService());
 
   static RegisterUseCase _registerUseCase() =>
       RegisterUseCase(_authRepository());
 
   static LoginUseCase _loginUseCase() => LoginUseCase(_authRepository());
+
+  static GoogleSignInUseCase _googleSignInUseCase() =>
+      GoogleSignInUseCase(_authRepository());
 
   static LogoutUseCase _logoutUseCase() => LogoutUseCase(_authRepository());
 
@@ -36,6 +44,7 @@ class AuthDependencies {
   static AuthCubit _authCubit() => AuthCubit(
         registerUseCase: _registerUseCase(),
         loginUseCase: _loginUseCase(),
+        googleSignInUseCase: _googleSignInUseCase(),
         logoutUseCase: _logoutUseCase(),
         forgotPasswordUseCase: _forgotPasswordUseCase(),
         verifyOtpUseCase: _verifyOtpUseCase(),

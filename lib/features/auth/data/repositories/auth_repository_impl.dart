@@ -4,14 +4,16 @@ import 'package:restaurant_app/core/utils/app_logger.dart';
 import 'package:restaurant_app/features/auth/data/models/auth_result_model.dart';
 import 'package:restaurant_app/features/auth/data/models/user_model.dart';
 import 'package:restaurant_app/features/auth/data/services/auth_service.dart';
+import 'package:restaurant_app/features/auth/data/services/google_auth_service.dart';
 import 'package:restaurant_app/features/auth/domain/entities/auth_result.dart';
 import 'package:restaurant_app/features/auth/domain/entities/user.dart';
 import 'package:restaurant_app/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthService _authService;
+  final GoogleAuthService _googleAuthService;
 
-  AuthRepositoryImpl(this._authService);
+  AuthRepositoryImpl(this._authService, this._googleAuthService);
 
   @override
   Future<Either<String, User>> register({
@@ -109,8 +111,45 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<String, AuthResult>> signInWithGoogle() async {
+    try {
+      AppLogger.info('Starting Google Sign-In flow');
+
+      // Step 1: Get Firebase ID token via GoogleAuthService
+      final String firebaseIdToken =
+          await _googleAuthService.signInWithGoogle();
+
+      AppLogger.info('Firebase ID token obtained, authenticating with backend');
+
+      // Step 2: Send Firebase ID token to backend for authentication
+      final response = await _authService.googleSignIn(
+        idToken: firebaseIdToken,
+      );
+
+      // Step 3: Parse the response
+      final authResult = AuthResultModel.fromJson(response.data);
+
+      // Step 4: Store tokens
+      await AppPrefs.setTokens(
+        accessToken: authResult.tokens.accessToken,
+        refreshToken: authResult.tokens.refreshToken,
+      );
+
+      AppLogger.auth(
+          'Google Sign-In successful for: ${authResult.user.email} (ID: ${authResult.user.id})');
+
+      return Right(authResult);
+    } catch (error) {
+      AppLogger.error('Google Sign-In failed: $error');
+      return Left(error.toString());
+    }
+  }
+
+  @override
   Future<Either<String, void>> logout() async {
     try {
+      // Sign out from Google and Firebase as well
+      await _googleAuthService.signOut();
       await AppPrefs.clearTokens();
       return const Right(null);
     } catch (error) {

@@ -56,6 +56,15 @@ class AuthLoginSuccess extends AuthState {
   List<Object?> get props => [user];
 }
 
+class AuthGoogleSignInSuccess extends AuthState {
+  final User user;
+
+  const AuthGoogleSignInSuccess(this.user);
+
+  @override
+  List<Object?> get props => [user];
+}
+
 class AuthOtpSent extends AuthState {
   final String email;
 

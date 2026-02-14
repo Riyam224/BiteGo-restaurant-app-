@@ -7,6 +7,7 @@ class ApiEndpoints {
   static const String register = '/auth/register';
   static const String login = '/auth/login';
   static const String refreshToken = '/auth/refresh';
+  static const String googleSignIn = '/auth/google';
 
   // Password Recovery
   static const String forgotPassword = '/auth/forgot-password';

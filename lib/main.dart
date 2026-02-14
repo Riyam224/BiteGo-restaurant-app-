@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,6 +8,7 @@ import 'package:restaurant_app/core/config/screen_config.dart';
 import 'package:restaurant_app/core/routing/app_router.dart';
 import 'package:restaurant_app/core/utils/app_colors.dart';
 import 'package:restaurant_app/core/utils/app_theme.dart';
+import 'package:restaurant_app/firebase_options.dart';
 import 'package:restaurant_app/l10n/app_localizations.dart';
 
 bool _isFlavorInitialized() {
@@ -18,8 +20,13 @@ bool _isFlavorInitialized() {
   }
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Initialize default flavor (dev) if not already initialized
   // This is overridden when running through main_dev.dart or main_prod.dart
