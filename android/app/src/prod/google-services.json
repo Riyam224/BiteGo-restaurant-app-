@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "292858510056",
+    "project_id": "bitego-dev",
+    "storage_bucket": "bitego-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292858510056:android:7869fd2fceecc1cb94e75d",
+        "android_client_info": {
+          "package_name": "com.example.restaurant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292858510056-m0c2kecluglgenq3s9lmia0pvjmqveib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpvyANvKGK5_w5JSZOvWj-pzIHos10i5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292858510056-m0c2kecluglgenq3s9lmia0pvjmqveib.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292858510056-tdgonbau75o8qs7mhvs770gbqgnogvp6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.restaurantApp.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

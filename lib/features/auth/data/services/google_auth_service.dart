@@ -14,56 +14,47 @@ class GoogleAuthService {
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
   })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
+        _googleSignIn = googleSignIn ?? GoogleSignIn.instance {
+    // Initialize GoogleSignIn with Web Client ID for Android emulator
+    _googleSignIn.initialize(
+      serverClientId:
+          '757978088939-87b9la2s8elrvquvibtob8hf8cvemefg.apps.googleusercontent.com',
+    );
+  }
 
-  /// Sign in with Google
-  /// Returns Firebase ID token that can be used to authenticate with backend
-  /// Throws exception if sign in fails or is cancelled
-  Future<String> signInWithGoogle() async {
+  /// Sign in with Google.
+  /// Returns the Firebase ID token on success, or null if the user cancelled.
+  /// Throws on actual errors.
+  Future<String?> signInWithGoogle() async {
     try {
-      AppLogger.info('Starting Google Sign-In flow');
+      AppLogger.info('Starting Google Sign-In flow (One Tap disabled for testing)');
 
-      // Try lightweight authentication first (silent sign-in), fallback to interactive
-      late GoogleSignInAccount googleUser;
+      final googleUser = await _googleSignIn.authenticate();
 
-      // attemptLightweightAuthentication returns GoogleSignInAccount? (nullable)
-      final silentUser = await _googleSignIn.attemptLightweightAuthentication();
-
-      if (silentUser != null) {
-        AppLogger.info('Silent sign-in successful');
-        googleUser = silentUser;
-      } else {
-        AppLogger.info('Silent sign-in failed, falling back to interactive sign-in');
-        // authenticate returns GoogleSignInAccount (non-nullable) or throws
-        googleUser = await _googleSignIn.authenticate();
-      }
-
-      AppLogger.info('Google user signed in: ${googleUser.email}');
-
-      // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
-      // Create a new credential using the ID token
-      // Note: google_sign_in v7.0+ only provides idToken
       final credential = firebase_auth.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
 
-      // Sign in to Firebase with the Google credential
       final firebase_auth.UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(credential);
 
-      // Get the Firebase ID token
       final String? idToken = await userCredential.user?.getIdToken();
 
       if (idToken == null) {
-        AppLogger.error('Failed to get Firebase ID token');
         throw Exception('Failed to get authentication token');
       }
 
-      AppLogger.auth(
-          'Firebase authentication successful for: ${googleUser.email}');
+      AppLogger.auth('Firebase authentication successful for: ${googleUser.email}');
       return idToken;
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        AppLogger.info('Google Sign-In cancelled by user');
+        return null;
+      }
+      AppLogger.error('Google Sign-In exception: ${e.code} - $e');
+      rethrow;
     } on firebase_auth.FirebaseAuthException catch (e) {
       AppLogger.error('Firebase Auth error: ${e.code} - ${e.message}');
       throw _handleFirebaseAuthException(e);

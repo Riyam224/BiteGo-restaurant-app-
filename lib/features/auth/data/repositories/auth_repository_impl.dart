@@ -115,9 +115,9 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       AppLogger.info('Starting Google Sign-In flow');
 
-      // Step 1: Get Firebase ID token via GoogleAuthService
-      final String firebaseIdToken =
-          await _googleAuthService.signInWithGoogle();
+      // Step 1: Get Firebase ID token via GoogleAuthService (null = user cancelled)
+      final String? firebaseIdToken = await _googleAuthService.signInWithGoogle();
+      if (firebaseIdToken == null) return const Left('cancelled');
 
       AppLogger.info('Firebase ID token obtained, authenticating with backend');
 

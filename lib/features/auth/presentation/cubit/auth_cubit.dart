@@ -88,7 +88,13 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await _googleSignInUseCase();
 
     result.fold(
-      (error) => emit(AuthError(error)),
+      (error) {
+        if (error == 'cancelled') {
+          emit(const AuthInitial());
+        } else {
+          emit(AuthError(error));
+        }
+      },
       (authResult) => emit(AuthGoogleSignInSuccess(authResult.user)),
     );
   }
