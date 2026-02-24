@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/core/utils/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String label;
+  final String? label;
   final TextEditingController? controller;
   final String? initialValue;
   final String? hintText;
@@ -16,7 +17,7 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     super.key,
-    required this.label,
+    this.label,
     this.controller,
     this.initialValue,
     this.hintText,
@@ -32,26 +33,33 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
+        if (label != null && label!.isNotEmpty)
+          Text(
+            label!,
+            style: TextStyle(
+              color: AppColors.getTextSecondary(context),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
+        if (label != null && label!.isNotEmpty) const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.getInputBackground(context),
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: AppColors.getInputBorder(context),
+              width: 1,
+            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.08),
+                color: AppColors.getShadow(context),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -70,15 +78,15 @@ class CustomTextField extends StatelessWidget {
                   validator: validator,
                   enabled: enabled,
                   maxLines: maxLines,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
-                    color: Colors.black87,
+                    color: AppColors.getTextPrimary(context),
                     fontWeight: FontWeight.w500,
                   ),
                   decoration: InputDecoration(
                     hintText: hintText,
                     hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
+                      color: AppColors.getTextSecondary(context).withOpacity(0.6),
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                     ),

@@ -14,6 +14,15 @@ class AppAssets {
   // Welcome assets
   static const welcome = 'assets/images/welcome.svg';
 
+  //todo  home assets
+
+  static const menuIcon = 'assets/icons/menu_icon.svg';
+  static const mapIcon = 'assets/icons/map_icon.svg';
+  static const burgerIcon = 'assets/icons/burger_icon.svg';
+  static const burgerCarousel = 'assets/images/burger_carousel.png';
+  static const pizzaCarousel = 'assets/images/pizza.png';
+  static const friedCarousel = 'assets/images/fried.png';
+
   static const profileMan = 'assets/images/profile_man.png';
   static const profileGirl = 'assets/images/profile_girl.png';
 

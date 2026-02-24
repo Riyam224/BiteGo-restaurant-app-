@@ -88,6 +88,14 @@ class AppTextStyles {
     color: AppColors.textSecondary,
   );
 
+  static TextStyle get seeAllButton => TextStyle(
+    color: AppColors.textSecondary,
+    fontSize: 12.sp,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
+    // height: 3,
+  );
+
   // =========================
   // AUTH / ONBOARDING
   // =========================

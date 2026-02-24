@@ -6,7 +6,7 @@ import 'package:restaurant_app/core/routing/route_names.dart';
 import 'package:restaurant_app/features/auth/presentation/screens/success_check_email_when_forget_password_screen.dart';
 
 import 'package:restaurant_app/features/auth/presentation/screens/welcome_screen.dart';
-import 'package:restaurant_app/features/home/presentation/screens/home_screen.dart';
+import 'package:restaurant_app/features/main/presentation/screens/main_screen.dart';
 import 'package:restaurant_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:restaurant_app/features/splash/presentation/screens/splash_screen.dart';
 
@@ -21,7 +21,7 @@ class RouteGenerator {
     navigatorKey: appNavigatorKey,
     errorBuilder: (context, state) =>
         const Scaffold(body: Center(child: Text('Not found'))),
-    initialLocation: AppRoutes.splash,
+    initialLocation: AppRoutes.home,
     routes: [
       // splash screen route
       GoRoute(path: AppRoutes.splash, builder: (_, __) => const SplashScreen()),
@@ -56,13 +56,10 @@ class RouteGenerator {
         path: AppRoutes.home,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
-          child: const HomeScreen(),
+          child: const MainScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
-              opacity: CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeIn,
-              ),
+              opacity: CurvedAnimation(parent: animation, curve: Curves.easeIn),
               child: child,
             );
           },

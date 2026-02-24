@@ -115,16 +115,33 @@ class AppStrings {
   // =========================
   static const home = 'Home';
   static const searchFood = 'Search food, restaurant...';
+  static const searchFoodOrRestaurant = 'Search for food or restaurant';
   static const nearbyRestaurants = 'Nearby restaurants';
   static const popularMenu = 'Popular menu';
   static const viewAll = 'View all';
+  static const seeAll = 'See All';
+
+  // Home - Today New Arrivals
+  static const todayNewArrivals = 'Today New Arrivals';
+  static const bestOfTodayFoodList = 'Best of the today  food list update';
+
+  // Home - Explore Restaurant
+  static const exploreRestaurant = 'Explore Restaurant';
+  static const checkCityNearbyRestaurant = 'Check your city Near by Restaurant';
+  static const book = 'Book';
 
   // =========================
   // RESTAURANT
   // =========================
   static const restaurantDetails = 'Restaurant Details';
+  static const detailRestaurant = 'Detail Restaurant';
   static const menu = 'Menu';
   static const reviews = 'Reviews';
+  static const visitRestaurant = 'Visit the Restaurant';
+  static const listOtherRestaurant = 'List other restaurant';
+  static const openToday = 'Open today';
+  static const closedToday = 'Closed today';
+  static const check = 'Check';
 
   static const addToCart = 'Add to Cart';
   static const orderNow = 'Order Now';
@@ -135,6 +152,12 @@ class AppStrings {
   static const myCart = 'My Cart';
   static const checkout = 'Checkout';
   static const total = 'Total';
+
+  // =========================
+  // BOOKING
+  // =========================
+  static const bookingHistory = 'Booking History';
+  static const bookingDetails = 'Booking Details';
 
   // =========================
   // PROFILE
