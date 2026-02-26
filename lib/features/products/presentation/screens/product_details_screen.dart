@@ -117,21 +117,60 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                   SizedBox(height: 8.h),
 
-                  // Category
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Text(
-                      widget.product.category,
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.primary,
+                  // Category & Availability
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Text(
+                          widget.product.category,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primary,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(width: 8.w),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                        decoration: BoxDecoration(
+                          color: widget.product.isAvailable
+                              ? AppColors.success.withOpacity(0.1)
+                              : Colors.red.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              widget.product.isAvailable
+                                  ? Icons.check_circle
+                                  : Icons.cancel,
+                              size: 14.sp,
+                              color: widget.product.isAvailable
+                                  ? AppColors.success
+                                  : Colors.red,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              widget.product.isAvailable ? 'Available' : 'Unavailable',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                color: widget.product.isAvailable
+                                    ? AppColors.success
+                                    : Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
 
                   SizedBox(height: 12.h),
@@ -319,8 +358,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         child: SafeArea(
           child: PrimaryButton(
-            text: AppStrings.tryIt,
-            onPressed: _addToCart,
+            text: widget.product.isAvailable
+                ? 'Add to Cart - \$${(widget.product.price * _quantity).toStringAsFixed(2)}'
+                : 'Currently Unavailable',
+            onPressed: widget.product.isAvailable ? _addToCart : null,
           ),
         ),
       ),

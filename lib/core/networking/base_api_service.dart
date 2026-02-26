@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:restaurant_app/core/di/injection.dart';
 import 'package:restaurant_app/core/networking/api_error_handler.dart';
 import 'package:restaurant_app/core/networking/dio_client.dart';
+import 'package:restaurant_app/core/storage/secure_storage_service.dart';
 
 /// Protected API Service - Base class for authenticated endpoints
 ///
@@ -28,7 +30,9 @@ abstract class BaseApiService {
   late final Dio _dio;
 
   BaseApiService() {
-    _dio = DioClient.createProtectedDio();
+    // Get SecureStorageService from DI
+    final storageService = sl<SecureStorageService>();
+    _dio = DioClient.createProtectedDio(storageService);
   }
 
   /// Getter for accessing Dio instance in child classes if needed

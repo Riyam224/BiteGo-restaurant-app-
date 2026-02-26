@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:restaurant_app/core/models/product_model.dart';
+import 'package:restaurant_app/core/routing/route_names.dart';
 import 'package:restaurant_app/features/home/data/models/new_arrival_model.dart';
 import 'package:restaurant_app/features/home/data/models/restaurant_model.dart';
 import 'package:restaurant_app/features/home/presentation/widgets/booking_restaurant_card.dart';
@@ -17,6 +20,44 @@ import '../widgets/promo_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  /// Converts NewArrivalModel to ProductModel for navigation
+  ProductModel _convertNewArrivalToProduct(NewArrivalModel item) {
+    return ProductModel(
+      id: item.id,
+      name: item.name,
+      description: 'Delicious ${item.name} from our ${item.restaurantName} collection. Order now and enjoy!',
+      price: 15.99, // Default price for demo
+      imageUrl: item.imageUrl,
+      category: item.restaurantName,
+      rating: item.rating ?? 0.0,
+      reviewCount: item.reviewCount,
+      isAvailable: true,
+      tags: ['Popular', 'New Arrival'],
+    );
+  }
+
+  /// Converts RestaurantModel to ProductModel for navigation
+  ProductModel _convertRestaurantToProduct(RestaurantModel item) {
+    // Extract price from address if available (format: "description\n$XX.XX")
+    final parts = item.address.split('\n');
+    final priceString = parts.length > 1 ? parts[1].replaceAll('\$', '') : '0';
+    final price = double.tryParse(priceString) ?? 0.0;
+    final description = parts.isNotEmpty ? parts[0] : item.name;
+
+    return ProductModel(
+      id: item.id,
+      name: item.name,
+      description: description,
+      price: price,
+      imageUrl: item.imageUrl,
+      category: 'Popular Menu',
+      rating: 4.5,
+      reviewCount: 25,
+      isAvailable: true,
+      tags: ['Popular', 'Recommended'],
+    );
+  }
 
   // Sample data for today's specials
   List<NewArrivalModel> get _todaysSpecials => [
@@ -207,11 +248,13 @@ class HomeScreen extends StatelessWidget {
                       itemCount: _todaysSpecials.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
+                        final item = _todaysSpecials[index];
                         return NewArrivalCard(
-                          item: _todaysSpecials[index],
+                          item: item,
                           onTap: () {
-                            // Handle card tap - navigate to detail page
-                            debugPrint('Tapped on: ${_todaysSpecials[index].name}');
+                            // Convert to ProductModel and navigate to details
+                            final product = _convertNewArrivalToProduct(item);
+                            context.push(AppRoutes.productDetails, extra: product);
                           },
                         );
                       },
@@ -240,9 +283,15 @@ class HomeScreen extends StatelessWidget {
                         restaurantName: menuItem.name,
                         address: menuItem.address,
                         imageUrl: menuItem.imageUrl,
+                        onTap: () {
+                          // Navigate to product details when card is tapped
+                          final product = _convertRestaurantToProduct(menuItem);
+                          context.push(AppRoutes.productDetails, extra: product);
+                        },
                         onBookPressed: () {
-                          // Handle add to cart action
-                          debugPrint('Add to cart: ${menuItem.name}');
+                          // Navigate to product details when "Try it" button is pressed
+                          final product = _convertRestaurantToProduct(menuItem);
+                          context.push(AppRoutes.productDetails, extra: product);
                         },
                       );
                     },

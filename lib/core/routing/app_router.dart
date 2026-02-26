@@ -105,7 +105,16 @@ class RouteGenerator {
       GoRoute(
         path: AppRoutes.productDetails,
         builder: (context, state) {
-          final product = state.extra as ProductModel;
+          final product = state.extra as ProductModel?;
+          if (product == null) {
+            // If no product is passed, navigate back to home
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.go(AppRoutes.home);
+            });
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
           return ProductDetailsScreen(product: product);
         },
       ),

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:restaurant_app/core/config/network_config.dart';
 import 'package:restaurant_app/core/config/timing_config.dart';
 import 'package:restaurant_app/core/constants/api_base.dart';
-import 'package:restaurant_app/core/storage/shared_prefs.dart';
+import 'package:restaurant_app/core/storage/secure_storage_service.dart';
 
 /// Factory class that creates and configures Dio HTTP client instances.
 /// Provides separate clients for public and protected endpoints.
@@ -59,7 +59,7 @@ class DioClient {
 
   /// Creates a Dio client for PROTECTED endpoints (authentication required)
   /// Use for: profile, cart, orders, addresses, reviews, etc.
-  static Dio createProtectedDio() {
+  static Dio createProtectedDio(SecureStorageService storageService) {
     final dio = Dio(
       BaseOptions(
         baseUrl: ApiBase.apiV1,
@@ -77,7 +77,7 @@ class DioClient {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           // Get JWT token from secure storage
-          final token = await AppPrefs.getAccessToken();
+          final token = await storageService.getAccessToken();
 
           // Add Bearer token to Authorization header if available
           if (token != null && token.isNotEmpty) {
@@ -133,8 +133,12 @@ class DioClient {
     }
   }
 
-  /// Legacy method for backward compatibility
-  /// @deprecated Use createProtectedDio() instead
-  @Deprecated('Use createProtectedDio() for authenticated endpoints')
-  static Dio createDio() => createProtectedDio();
+  /// Legacy method for backward compatibility - requires storage service
+  /// @deprecated Use createProtectedDio(storageService) instead
+  @Deprecated('Use createProtectedDio(storageService) for authenticated endpoints')
+  static Dio createDio() {
+    throw UnimplementedError(
+      'createDio() is deprecated. Use createProtectedDio(storageService) instead',
+    );
+  }
 }

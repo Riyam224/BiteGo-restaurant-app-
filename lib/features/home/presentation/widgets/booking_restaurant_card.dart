@@ -10,6 +10,7 @@ class BookingRestaurantCard extends StatelessWidget {
   final String address;
   final String imageUrl;
   final VoidCallback onBookPressed;
+  final VoidCallback? onTap;
 
   const BookingRestaurantCard({
     super.key,
@@ -17,11 +18,14 @@ class BookingRestaurantCard extends StatelessWidget {
     required this.address,
     required this.imageUrl,
     required this.onBookPressed,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
@@ -106,6 +110,7 @@ class BookingRestaurantCard extends StatelessWidget {
             onPressed: onBookPressed,
           ),
         ],
+      ),
       ),
     );
   }

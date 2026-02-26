@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/core/config/flavor_config.dart';
 import 'package:restaurant_app/core/config/screen_config.dart';
+import 'package:restaurant_app/core/di/injection.dart' as di;
 import 'package:restaurant_app/core/routing/app_router.dart';
 import 'package:restaurant_app/core/utils/app_colors.dart';
 import 'package:restaurant_app/core/utils/app_theme.dart';
@@ -30,6 +31,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // ✅ Initialize Dependency Injection (Secure Storage, API Services, Cubits)
+  await di.initializeDependencies();
 
   // Initialize default flavor (dev) if not already initialized
   // This is overridden when running through main_dev.dart or main_prod.dart
