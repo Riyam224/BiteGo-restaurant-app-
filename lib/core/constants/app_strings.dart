@@ -145,6 +145,7 @@ class AppStrings {
 
   static const addToCart = 'Add to Cart';
   static const orderNow = 'Order Now';
+  static const tryIt = 'Try it';
 
   // =========================
   // CART

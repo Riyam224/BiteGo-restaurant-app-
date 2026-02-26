@@ -18,12 +18,12 @@ import '../widgets/promo_carousel.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  // Sample data for new arrivals
-  List<NewArrivalModel> get _newArrivals => [
+  // Sample data for today's specials
+  List<NewArrivalModel> get _todaysSpecials => [
     NewArrivalModel(
       id: '1',
       name: 'Chicken Biryani',
-      restaurantName: 'Ambrosia Hotel & Restaurant',
+      restaurantName: 'Main Course',
       imageUrl:
           'https://images.pexels.com/photos/20642812/pexels-photo-20642812.jpeg',
       reviewCount: 62,
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
     NewArrivalModel(
       id: '2',
       name: 'Margherita Pizza',
-      restaurantName: 'Pizza Palace',
+      restaurantName: 'Italian',
       imageUrl:
           'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg',
       reviewCount: 48,
@@ -41,43 +41,52 @@ class HomeScreen extends StatelessWidget {
     NewArrivalModel(
       id: '3',
       name: 'Beef Burger',
-      restaurantName: 'Burger House',
+      restaurantName: 'Fast Food',
       imageUrl:
           'https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg',
       reviewCount: 35,
       rating: 4.3,
     ),
+    NewArrivalModel(
+      id: '4',
+      name: 'Pasta Carbonara',
+      restaurantName: 'Italian',
+      imageUrl:
+          'https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg',
+      reviewCount: 28,
+      rating: 4.6,
+    ),
   ];
 
-  // Sample data for booking restaurants
-  List<RestaurantModel> get _bookingRestaurants => [
+  // Sample data for popular menu items
+  List<RestaurantModel> get _popularMenuItems => [
     RestaurantModel(
       id: '1',
-      name: 'Ambrosia Hotel & Restaurant',
-      address: 'Kazi Deiry, Taiger Pass\nChittagong',
+      name: 'Grilled Salmon',
+      address: 'Fresh Atlantic salmon with herbs\n\$24.99',
       imageUrl:
-          'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg',
+          'https://images.pexels.com/photos/1516415/pexels-photo-1516415.jpeg',
     ),
     RestaurantModel(
       id: '2',
-      name: 'Tava Restaurant',
-      address: 'Zakir Hossain Rd,\nChittagong',
+      name: 'Caesar Salad',
+      address: 'Classic Caesar with homemade dressing\n\$12.99',
       imageUrl:
-          'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg',
+          'https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg',
     ),
     RestaurantModel(
       id: '3',
-      name: 'Haatkhola',
-      address: '6 Surson Road,\nChittagong',
+      name: 'Chocolate Lava Cake',
+      address: 'Warm chocolate cake with ice cream\n\$8.99',
       imageUrl:
-          'https://images.pexels.com/photos/3201921/pexels-photo-3201921.jpeg',
+          'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg',
     ),
     RestaurantModel(
       id: '4',
-      name: 'Spice Garden',
-      address: 'Agrabad Commercial Area,\nChittagong',
+      name: 'Sushi Platter',
+      address: 'Assorted fresh sushi rolls\n\$32.99',
       imageUrl:
-          'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg',
+          'https://images.pexels.com/photos/357756/pexels-photo-357756.jpeg',
     ),
   ];
 
@@ -190,19 +199,19 @@ class HomeScreen extends StatelessWidget {
                   CustomSubtitle(text: AppStrings.bestOfTodayFoodList),
                   SizedBox(height: 16.h),
 
-                  // New Arrivals Horizontal List
+                  // Today's Specials Horizontal List
                   SizedBox(
                     height: 280.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _newArrivals.length,
+                      itemCount: _todaysSpecials.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         return NewArrivalCard(
-                          item: _newArrivals[index],
+                          item: _todaysSpecials[index],
                           onTap: () {
                             // Handle card tap - navigate to detail page
-                            debugPrint('Tapped on: ${_newArrivals[index].name}');
+                            debugPrint('Tapped on: ${_todaysSpecials[index].name}');
                           },
                         );
                       },
@@ -212,28 +221,28 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomTitle(title: AppStrings.exploreRestaurant),
+                      CustomTitle(title: 'Popular Menu'),
                       SeeAllWithIcon(),
                     ],
                   ),
-                  CustomSubtitle(text: AppStrings.checkCityNearbyRestaurant),
+                  CustomSubtitle(text: 'Most ordered dishes this week'),
                   SizedBox(height: 16.h),
 
-                  // Booking Restaurants List
+                  // Popular Menu Items List
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _bookingRestaurants.length,
+                    itemCount: _popularMenuItems.length,
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
-                      final restaurant = _bookingRestaurants[index];
+                      final menuItem = _popularMenuItems[index];
                       return BookingRestaurantCard(
-                        restaurantName: restaurant.name,
-                        address: restaurant.address,
-                        imageUrl: restaurant.imageUrl,
+                        restaurantName: menuItem.name,
+                        address: menuItem.address,
+                        imageUrl: menuItem.imageUrl,
                         onBookPressed: () {
-                          // Handle booking action
-                          debugPrint('Book ${restaurant.name}');
+                          // Handle add to cart action
+                          debugPrint('Add to cart: ${menuItem.name}');
                         },
                       );
                     },

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/core/common_ui/widgets/custom_bottom_nav_bar.dart';
 import 'package:restaurant_app/features/account/presentation/screens/account_screen.dart';
-import 'package:restaurant_app/features/booking/presentation/screens/booking_history_screen.dart';
+import 'package:restaurant_app/features/cart/presentation/screens/cart_screen.dart';
 import 'package:restaurant_app/features/home/presentation/screens/home_screen.dart';
+import 'package:restaurant_app/features/orders/presentation/screens/orders_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,7 +17,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
-    BookingHistoryScreen(),
+    CartScreen(),
+    OrdersScreen(),
     AccountScreen(),
   ];
 

@@ -100,9 +100,9 @@ class BookingRestaurantCard extends StatelessWidget {
 
           SizedBox(width: 12.w),
 
-          // Book Button
+          // Try it Button
           PrimaryButton(
-            text: AppStrings.book,
+            text: AppStrings.tryIt,
             onPressed: onBookPressed,
           ),
         ],

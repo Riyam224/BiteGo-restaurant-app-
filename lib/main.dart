@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/core/config/flavor_config.dart';
 import 'package:restaurant_app/core/config/screen_config.dart';
 import 'package:restaurant_app/core/routing/app_router.dart';
@@ -10,6 +11,8 @@ import 'package:restaurant_app/core/utils/app_colors.dart';
 import 'package:restaurant_app/core/utils/app_theme.dart';
 import 'package:restaurant_app/firebase_options.dart';
 import 'package:restaurant_app/l10n/app_localizations.dart';
+import 'package:restaurant_app/core/providers/cart_provider.dart';
+import 'package:restaurant_app/core/providers/order_provider.dart';
 
 bool _isFlavorInitialized() {
   try {
@@ -66,54 +69,60 @@ class BiteGo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: ScreenConfig.designSize,
-      minTextAdapt: ScreenConfig.minTextAdapt,
-      splitScreenMode: ScreenConfig.splitScreenMode,
-      builder: (context, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerConfig: RouteGenerator.mainRoutingInOurApp,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
+      ],
+      child: ScreenUtilInit(
+        designSize: ScreenConfig.designSize,
+        minTextAdapt: ScreenConfig.minTextAdapt,
+        splitScreenMode: ScreenConfig.splitScreenMode,
+        builder: (context, child) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: RouteGenerator.mainRoutingInOurApp,
 
-          // ========= THEMING =========
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.system, // Follow system theme
-          // ========= LOCALIZATION =========
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
+            // ========= THEMING =========
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.system, // Follow system theme
+            // ========= LOCALIZATION =========
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
 
-          supportedLocales: const [
-            Locale('en', ''), // English
-            Locale('fr', ''), // French
-            Locale('ar', ''), // Arabic
-          ],
+            supportedLocales: const [
+              Locale('en', ''), // English
+              Locale('fr', ''), // French
+              Locale('ar', ''), // Arabic
+            ],
 
-          // Locale resolution strategy
-          localeResolutionCallback: (locale, supportedLocales) {
-            // Check if the device locale is supported
-            if (locale != null) {
-              for (var supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale.languageCode) {
-                  return supportedLocale;
+            // Locale resolution strategy
+            localeResolutionCallback: (locale, supportedLocales) {
+              // Check if the device locale is supported
+              if (locale != null) {
+                for (var supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale.languageCode) {
+                    return supportedLocale;
+                  }
                 }
               }
-            }
-            // Fallback to English if device locale not supported
-            return supportedLocales.first;
-          },
+              // Fallback to English if device locale not supported
+              return supportedLocales.first;
+            },
 
-          // Optional: Set a specific locale (comment out to use device locale)
-          // locale: const Locale('en', ''),
+            // Optional: Set a specific locale (comment out to use device locale)
+            // locale: const Locale('en', ''),
 
-          // App title for task switcher
-          title: 'BiteGo',
-        );
-      },
+            // App title for task switcher
+            title: 'BiteGo',
+          );
+        },
+      ),
     );
   }
 }
